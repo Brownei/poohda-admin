@@ -11,10 +11,31 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as WaitlistImport } from './routes/waitlist'
+import { Route as ViewclothesImport } from './routes/viewclothes'
+import { Route as AddclothesImport } from './routes/addclothes'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const WaitlistRoute = WaitlistImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ViewclothesRoute = ViewclothesImport.update({
+  id: '/viewclothes',
+  path: '/viewclothes',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AddclothesRoute = AddclothesImport.update({
+  id: '/addclothes',
+  path: '/addclothes',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AboutRoute = AboutImport.update({
   id: '/about',
@@ -46,6 +67,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/addclothes': {
+      id: '/addclothes'
+      path: '/addclothes'
+      fullPath: '/addclothes'
+      preLoaderRoute: typeof AddclothesImport
+      parentRoute: typeof rootRoute
+    }
+    '/viewclothes': {
+      id: '/viewclothes'
+      path: '/viewclothes'
+      fullPath: '/viewclothes'
+      preLoaderRoute: typeof ViewclothesImport
+      parentRoute: typeof rootRoute
+    }
+    '/waitlist': {
+      id: '/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof WaitlistImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +96,51 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/addclothes': typeof AddclothesRoute
+  '/viewclothes': typeof ViewclothesRoute
+  '/waitlist': typeof WaitlistRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/addclothes': typeof AddclothesRoute
+  '/viewclothes': typeof ViewclothesRoute
+  '/waitlist': typeof WaitlistRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/addclothes': typeof AddclothesRoute
+  '/viewclothes': typeof ViewclothesRoute
+  '/waitlist': typeof WaitlistRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/about' | '/addclothes' | '/viewclothes' | '/waitlist'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/about' | '/addclothes' | '/viewclothes' | '/waitlist'
+  id: '__root__' | '/' | '/about' | '/addclothes' | '/viewclothes' | '/waitlist'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AddclothesRoute: typeof AddclothesRoute
+  ViewclothesRoute: typeof ViewclothesRoute
+  WaitlistRoute: typeof WaitlistRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AddclothesRoute: AddclothesRoute,
+  ViewclothesRoute: ViewclothesRoute,
+  WaitlistRoute: WaitlistRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +154,10 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/about",
+        "/addclothes",
+        "/viewclothes",
+        "/waitlist"
       ]
     },
     "/": {
@@ -105,6 +165,15 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/addclothes": {
+      "filePath": "addclothes.tsx"
+    },
+    "/viewclothes": {
+      "filePath": "viewclothes.tsx"
+    },
+    "/waitlist": {
+      "filePath": "waitlist.tsx"
     }
   }
 }
