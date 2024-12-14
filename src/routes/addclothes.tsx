@@ -24,58 +24,61 @@ function RouteComponent() {
 
   return (
     <>
-    <div className="w-full overflow-x-scroll">
-      <div className="p-2 mt-5 w-full mr-6">
-        <h3>Add Clothes</h3>
+      <div className="w-full overflow-x-scroll">
+        <div className="p-2 mt-5 w-full text-center">
+          <h3 className="text-2xl text-green-300">Add Clothes</h3>
+        </div>
+        <div className="flex flex-col justify-around items-center md:flex-row">
+          <form
+            className="bg-slate-800 p-4 h-96 w-96 rounded-md flex flex-col"
+            onSubmit={handleSubmit}
+          >
+            <input type="file" onChange={handleChange} />
+            <label>Product Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <br />
+            <label>Description:</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <br />
+            <label>Size:</label>
+            <select value={size} onChange={(e) => setSize(e.target.value)}>
+              <option value="">Select size</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+            </select>
+            <br />
+            <label>Colour:</label>
+            <input
+              type="text"
+              value={colour}
+              onChange={(e) => setColour(e.target.value)}
+            />
+            <br />
+            <input
+              type="submit"
+              value="Submit"
+              className="bg-green-300 rounded-md w-50 cursor-pointer text-black"
+            />
+          </form>
+          <div className="p-2 mt-5 w-52 rounded-md mr-6 bg-orange-500 flex flex-col justify-center items-center">
+            <img src={file} width={200} />
+            <h4>Name: {name}</h4>
+            <p>Description: {description}</p>
+            <p>Size: {size}</p>
+            <p>Colour: {colour}</p>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-col justify-around items-center md:flex-row">
-        <form
-          className="bg-slate-800 p-4 h-96 w-96 rounded-md flex flex-col"
-          onSubmit={handleSubmit}
-        >
-          <input type="file" onChange={handleChange} />
-          <label>Product Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <br />
-          <label>Description:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <br />
-          <label>Size:</label>
-          <select value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="">Select size</option>
-            <option value="XS">XS</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-          <br />
-          <label>Colour:</label>
-          <input
-            type="text"
-            value={colour}
-            onChange={(e) => setColour(e.target.value)}
-          />
-          <br />
-          <input type="submit" value="Submit" className="bg-green-300 rounded-md w-50 cursor-pointer text-black" />
-        </form>
-        <div className="p-2 mt-5 w-52 rounded-md mr-6 bg-orange-500 flex flex-col justify-center items-center">
-        <img src={file} width={200} />
-        <h4>Name: {name}</h4>
-        <p>Description: {description}</p>
-        <p>Size: {size}</p>
-        <p>Colour: {colour}</p>
-      </div>
-      </div>
-
-    </div>
     </>
   );
 }
