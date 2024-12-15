@@ -30,7 +30,7 @@ function RouteComponent() {
         </div>
         <div className="flex flex-col justify-around items-center md:flex-row">
           <form
-            className="bg-slate-800 p-4 h-96 w-96 rounded-md flex flex-col"
+            className="bg-slate-800 m-4 p-4 h-96 w-[80vw] rounded-md flex flex-col"
             onSubmit={handleSubmit}
           >
             <input type="file" onChange={handleChange} />
@@ -70,7 +70,7 @@ function RouteComponent() {
               className="bg-green-300 rounded-md w-50 cursor-pointer text-black"
             />
           </form>
-          <div className="p-2 mt-5 w-52 rounded-md mr-6 bg-orange-500 flex flex-col justify-center items-center">
+          <div className="p-2 mt-5 w-52 rounded-md m-4 bg-slate-800 flex flex-col justify-center items-center">
             <img src={file} width={200} />
             <h4>Name: {name}</h4>
             <p>Description: {description}</p>

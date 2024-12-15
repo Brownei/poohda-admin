@@ -11,67 +11,70 @@ function RootComponent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   function openSidebar() {
-    setIsSidebarOpen(prevIsSidebarOpen => !prevIsSidebarOpen);
+    setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   }
   return (
     <>
       <div className="flex flex-row h-[100vh] bg-black">
-        <div className="flex flex-col gap-4">
-        <h3
-          onClick={() => openSidebar()}
-          className="p-2 h-14 mt-4 md:hidden text-green-300 cursor-pointer text-2xl lg:hidden"
-        >
-          ☰
-        </h3>
-        <div
-          className={
-            isSidebarOpen
-              ? "p-2 flex flex-col gap-10 md:flex justify-evenly text-lg  text-green-300 w-1/3 lg:hidden"
-              : "hidden"
-          }
-        >
-          <Link
-            to="/"
-            activeProps={{
-              className: "font-bold",
-            }}
-            activeOptions={{ exact: true }}
+        <div className="flex flex-col gap-4 relative ">
+          <div
+            className="absolute top-4 left-4 md:hidden"
+            onClick={() => openSidebar()}
           >
-            Home
-          </Link>{" "}
-          <Link
-            to="/about"
-            activeProps={{
-              className: "font-bold",
-            }}
+            <h3 className="p-2 h-14 text-green-300 cursor-pointer text-2xl">
+              {isSidebarOpen ? "✕" : "☰"}
+            </h3>
+          </div>
+
+          <div
+            className={
+              isSidebarOpen
+                ? "p-2 mt-20 mr-9 flex flex-col gap-10 md:flex justify-evenly text-lg  text-green-300 w-1/3 lg:hidden"
+                : "hidden"
+            }
           >
-            About
-          </Link>
-          <Link
-            to="/addclothes"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Add Clothes
-          </Link>
-          <Link
-            to="/viewclothes"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            View Clothes
-          </Link>
-          <Link
-            to="/waitlist"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Check Waitlist
-          </Link>
-        </div>
+            <Link
+              to="/"
+              activeProps={{
+                className: "font-bold",
+              }}
+              activeOptions={{ exact: true }}
+            >
+              Home
+            </Link>{" "}
+            <Link
+              to="/about"
+              activeProps={{
+                className: "font-bold",
+              }}
+            >
+              About
+            </Link>
+            <Link
+              to="/addclothes"
+              activeProps={{
+                className: "font-bold",
+              }}
+            >
+              Add Clothes
+            </Link>
+            <Link
+              to="/viewclothes"
+              activeProps={{
+                className: "font-bold",
+              }}
+            >
+              View Clothes
+            </Link>
+            <Link
+              to="/waitlist"
+              activeProps={{
+                className: "font-bold",
+              }}
+            >
+              Check Waitlist
+            </Link>
+          </div>
         </div>
         <div className="p-2 md:flex justify-evenly gap-2 text-lg flex-col text-green-300 mr-10 hidden">
           <Link
