@@ -9,7 +9,6 @@ import { CiViewList } from "react-icons/ci";
 import { FaClipboardList } from "react-icons/fa";
 import { FaAssistiveListeningSystems } from "react-icons/fa";
 
-
 export const Route = createRootRoute({
   component: RootComponent,
 });
@@ -25,7 +24,13 @@ function RootComponent() {
       <div className="flex flex-row h-[100vh] bg-black">
         {/* Mobile Sidebar */}
 
-        <div className="flex flex-col gap-4 relative text-nowrap border-r-2 text-md">
+        <div
+          className={
+            isSidebarOpen
+              ? "flex flex-col gap-4 relative text-nowrap border-r-2 border-green-300 md:border-black text-md"
+              : "border-black"
+          }
+        >
           <div
             className="absolute top-4 left-4 md:hidden"
             onClick={() => openSidebar()}
@@ -51,13 +56,14 @@ function RootComponent() {
               }}
               activeOptions={{ exact: true }}
             >
-              <IoHomeOutline/> Home
+              <IoHomeOutline /> Home
             </Link>{" "}
             <Link
               className="flex flex-row w-20 justify-evenly items-center"
               to="/about"
               activeProps={{
-                className: "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
+                className:
+                  "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
               }}
             >
               <CiCircleQuestion /> About
@@ -66,7 +72,8 @@ function RootComponent() {
               className="flex flex-row w-28 justify-evenly items-center"
               to="/addclothes"
               activeProps={{
-                className: "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
+                className:
+                  "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
               }}
             >
               <IoAddCircleOutline /> Add Clothes
@@ -75,26 +82,28 @@ function RootComponent() {
               className="flex flex-row w-28 gap-2 justify-evenly items-center"
               to="/viewclothes"
               activeProps={{
-                className: "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
+                className:
+                  "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
               }}
             >
-              <CiViewList/> View Clothes
+              <CiViewList /> View Clothes
             </Link>
             <Link
               className="flex flex-row w-32 gap-2 justify-evenly items-center"
               to="/waitlist"
               activeProps={{
-                className: "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
+                className:
+                  "font-bold w-36 bg-slate-300 rounded-md text-black text-nowrap px-1  py-2",
               }}
             >
-              <FaClipboardList/> Check Waitlist
+              <FaClipboardList /> Check Waitlist
             </Link>
           </div>
         </div>
 
         {/* Tablet and Desktop Sidebar */}
 
-        <div className="p-2 md:flex justify-evenly gap-2 text-nowrap text-md flex-col text-green-300 mr-10 border-r-2 hidden">
+        <div className="p-2 md:flex justify-evenly gap-2 text-nowrap text-md flex-col text-green-300 mr-10 border-r-2 border-green-300 hidden">
           <Link
             className="flex flex-row gap-2 items-center"
             to="/"
