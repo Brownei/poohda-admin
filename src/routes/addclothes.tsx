@@ -15,6 +15,8 @@ function RouteComponent({ clothes }) {
 
   const addClothes = useClothesStore((state) => state.addClothes);
 
+  console.log("Brownson Here!")
+
   function handleChange(e) {
     console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
@@ -87,7 +89,7 @@ function RouteComponent({ clothes }) {
             </button>
           </form>
           <div className="p-2 mt-5 w-52 rounded-md m-4 bg-slate-800 flex flex-col justify-center items-center">
-           <span className="font-bold text-green-300">Preview</span> 
+            <span className="font-bold text-green-300">Preview</span>
             <img src={file} width={200} height={50} />
             <h4>Name: {name}</h4>
             <p>Description: {description}</p>
