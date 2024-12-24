@@ -29,6 +29,7 @@ function RouteComponent() {
               />
               <div className="flex flex-col mt-3 mb-3">
                 <span>Name: {cloth.name}</span>
+                <span>Price: ₦{cloth.price}</span>
                 <span>Desc: {cloth.description}</span>
                 <span>Size: {cloth.size}</span>
                 <span>Colour: {cloth.color}</span>
