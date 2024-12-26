@@ -17,8 +17,8 @@ function RouteComponent() {
   return (
     <div className="p-2 mt-5 w-full mr-6">
       {" "}
-      <div className="p-2 mt-5 w-full text-center">
-        <h3 className="text-2xl text-green-300">View Clothes</h3>
+      <div className="p-2 mt-5 w-full text-left">
+        <h3 className="text-xl text-black font-bold ml-16">View Clothes</h3>
         <div className="flex flex-wrap items-center justify-center overflow-y-scroll h-[80vh]">
           {clothes.map((cloth) => (
             <div className=" mt-5 w-52 rounded-md m-4 h-[fit-content] bg-slate-800 flex flex-col justify-center items-center">

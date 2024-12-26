@@ -43,22 +43,23 @@ function RouteComponent({ clothes }) {
 
   return (
     <>
-      <div className="w-full  overflow-scroll">
-        <div className="p-2 mt-5 w-full text-center">
-          <h3 className="text-xl text-green-300">Add Clothes</h3>
+      <div className="w-full overflow-scroll">
+        <div className="p-2 mt-6 w-full text-left ml-16">
+          <h3 className="text-xl text-black font-bold">Add Clothes</h3>
         </div>
         <div className="flex flex-col justify-around items-center md:flex-row">
           <form
             /* className="bg-slate-800  m-4 p-4 h-96 w-[60vw] rounded-md flex flex-col md:max-w-[60vw] sm:max-w-[60vw] lg:max-w-[40vw]" */
-            className="w-full flex flex-col px-6"
+            className="w-full flex flex-col px-6 text-black"
             onSubmit={handleSubmit}
           >
-            <input type="file" onChange={handleChange} />
+            <input type="file" required onChange={handleChange} />
             <label>Product Name</label>
             <input
               type="text"
               value={name}
-              className="bg-slate-800 rounded-md py-2"
+              required
+              className="bg-slate-800 text-white rounded-md py-2"
               onChange={(e) => setName(e.target.value)}
             />
             <br />
@@ -66,21 +67,24 @@ function RouteComponent({ clothes }) {
             <input
               type="number"
               value={price}
-              className="bg-slate-800 rounded-md py-2"
+              required
+              className="bg-slate-800 text-white rounded-md py-2"
               onChange={(e) => setPrice(e.target.value)}
             />
             <br />
             <label>Description</label>
             <textarea
               value={description}
-              className="bg-slate-800 rounded-md py-1"
+              className="bg-slate-800 text-white rounded-md py-1"
+              required
               onChange={(e) => setDescription(e.target.value)}
             />
             <br />
             <label>Size</label>
             <select
               value={size}
-              className="bg-slate-800 rounded-md py-2"
+              className="bg-slate-800 text-white text-sm rounded-md py-2"
+              required
               onChange={(e) => setSize(e.target.value)}
             >
               <option value="">Select size</option>
@@ -95,7 +99,8 @@ function RouteComponent({ clothes }) {
             <input
               type="text"
               value={colour}
-              className="bg-slate-800 rounded-md py-2"
+              required
+              className="bg-slate-800 text-white rounded-md py-2"
               onChange={(e) => setColour(e.target.value)}
             />
             <br />
@@ -109,13 +114,13 @@ function RouteComponent({ clothes }) {
               <button
                 type="submit"
                 /* onClick={() => addClothes(file, name, description, size, colour)} */
-                className="bg-green-300 rounded-md border-black w-20 cursor-pointer text-black p-2"
+                className="text-green-300 rounded-md border-black w-20 cursor-pointer bg-black p-2 transition duration-300 hover:text-white"
               >
                 Submit
               </button>
               <button
                 onClick={() => cancelForm()}
-                className="bg-blue-200 rounded-md border-black w-20 cursor-pointer text-black p-2"
+                className="bg-red-600 rounded-md border-black w-20 cursor-pointer text-black p-2 transition duration-300 hover:bg-red-700"
               >
                 Cancel
               </button>
