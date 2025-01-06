@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React from "react";
-import useClothesStore from "../store";
+import { useClothesStore } from "../hooks/use-store";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 export const Route = createFileRoute("/viewclothes")({
@@ -34,7 +34,7 @@ function RouteComponent() {
                 <span>Size: {cloth.size}</span>
                 <span>Colour: {cloth.color}</span>
                 <span className="cursor-pointer mt-3 flex flex-row  justify-center">
-                  <FaRegTrashAlt onClick={() => {deleteCloth(cloth.id)}} color="red" />
+                  <FaRegTrashAlt onClick={() => { deleteCloth(cloth.id) }} color="red" />
                 </span>
               </div>
             </div>

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Boicot';
+  src: url('../fonts/Boicot.ttf');
+  src: local('Boicot'), local('Boicot'),
+    url('../fonts/Boicot.ttf') format('embedded-opentype'),
+    url('../fonts/Boicot.ttf') format('woff2'),
+    url('../fonts/Boicot.ttf') format('woff'),
+    url('../fonts/Boicot.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Disamber';
+  src: url('../fonts/Disamber.otf');
+  src: local('Disamber'), local('Disamber'),
+    url('../fonts/Disamber.otf') format('embedded-opentype'),
+    url('../fonts/Disamber.otf') format('woff2'),
+    url('../fonts/Disamber.otf') format('woff'),
+    url('../fonts/Disamber.otf') format('truetype');
+}

@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as WaitlistImport } from './routes/waitlist'
 import { Route as ViewclothesImport } from './routes/viewclothes'
+import { Route as ClothesImport } from './routes/clothes'
+import { Route as CategoriesImport } from './routes/categories'
 import { Route as AddclothesImport } from './routes/addclothes'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
@@ -28,6 +30,18 @@ const WaitlistRoute = WaitlistImport.update({
 const ViewclothesRoute = ViewclothesImport.update({
   id: '/viewclothes',
   path: '/viewclothes',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ClothesRoute = ClothesImport.update({
+  id: '/clothes',
+  path: '/clothes',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CategoriesRoute = CategoriesImport.update({
+  id: '/categories',
+  path: '/categories',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +88,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AddclothesImport
       parentRoute: typeof rootRoute
     }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesImport
+      parentRoute: typeof rootRoute
+    }
+    '/clothes': {
+      id: '/clothes'
+      path: '/clothes'
+      fullPath: '/clothes'
+      preLoaderRoute: typeof ClothesImport
+      parentRoute: typeof rootRoute
+    }
     '/viewclothes': {
       id: '/viewclothes'
       path: '/viewclothes'
@@ -97,6 +125,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/addclothes': typeof AddclothesRoute
+  '/categories': typeof CategoriesRoute
+  '/clothes': typeof ClothesRoute
   '/viewclothes': typeof ViewclothesRoute
   '/waitlist': typeof WaitlistRoute
 }
@@ -105,6 +135,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/addclothes': typeof AddclothesRoute
+  '/categories': typeof CategoriesRoute
+  '/clothes': typeof ClothesRoute
   '/viewclothes': typeof ViewclothesRoute
   '/waitlist': typeof WaitlistRoute
 }
@@ -114,16 +146,40 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/addclothes': typeof AddclothesRoute
+  '/categories': typeof CategoriesRoute
+  '/clothes': typeof ClothesRoute
   '/viewclothes': typeof ViewclothesRoute
   '/waitlist': typeof WaitlistRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/addclothes' | '/viewclothes' | '/waitlist'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/addclothes'
+    | '/categories'
+    | '/clothes'
+    | '/viewclothes'
+    | '/waitlist'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/addclothes' | '/viewclothes' | '/waitlist'
-  id: '__root__' | '/' | '/about' | '/addclothes' | '/viewclothes' | '/waitlist'
+  to:
+    | '/'
+    | '/about'
+    | '/addclothes'
+    | '/categories'
+    | '/clothes'
+    | '/viewclothes'
+    | '/waitlist'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/addclothes'
+    | '/categories'
+    | '/clothes'
+    | '/viewclothes'
+    | '/waitlist'
   fileRoutesById: FileRoutesById
 }
 
@@ -131,6 +187,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AddclothesRoute: typeof AddclothesRoute
+  CategoriesRoute: typeof CategoriesRoute
+  ClothesRoute: typeof ClothesRoute
   ViewclothesRoute: typeof ViewclothesRoute
   WaitlistRoute: typeof WaitlistRoute
 }
@@ -139,6 +197,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AddclothesRoute: AddclothesRoute,
+  CategoriesRoute: CategoriesRoute,
+  ClothesRoute: ClothesRoute,
   ViewclothesRoute: ViewclothesRoute,
   WaitlistRoute: WaitlistRoute,
 }
@@ -156,6 +216,8 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/addclothes",
+        "/categories",
+        "/clothes",
         "/viewclothes",
         "/waitlist"
       ]
@@ -168,6 +230,12 @@ export const routeTree = rootRoute
     },
     "/addclothes": {
       "filePath": "addclothes.tsx"
+    },
+    "/categories": {
+      "filePath": "categories.tsx"
+    },
+    "/clothes": {
+      "filePath": "clothes.tsx"
     },
     "/viewclothes": {
       "filePath": "viewclothes.tsx"

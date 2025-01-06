@@ -1,4 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PlusCircleIcon } from "lucide-react";
+import { useState, useEffect } from "react"
+import { MdFilter9Plus } from "react-icons/md";
+import WaitlistTable from "@/components/ui/waitlist-table";
+import { clothingList } from "./clothes";
 
 export const Route = createFileRoute("/waitlist")({
   component: RouteComponent,
@@ -6,11 +11,13 @@ export const Route = createFileRoute("/waitlist")({
 
 function RouteComponent() {
   return (
-    <div className="p-2 mt-5 w-full mr-6">
-      {" "}
-      <div className="p-2 mt-6 w-full text-left">
-        <h3 className="text-xl text-black font-bold ml-16">Waitlist</h3>
+    <main className="grid gap-3">
+      <div className="flex justify-between items-center">
+        <label className="text-[2rem] lg:text-[3rem] font-Railway">Waitlist</label>
       </div>
-    </div>
+
+      <div className="w-full bg-RichBlack h-[1px]" />
+      <WaitlistTable waitlist={clothingList} />
+    </main>
   );
 }

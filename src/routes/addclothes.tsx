@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React, { useState } from "react";
-import useClothesStore from "../store";
+import { useClothesStore } from "../hooks/use-store";
 
 export const Route = createFileRoute("/addclothes")({
   component: RouteComponent,
