@@ -22,7 +22,7 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     {
       name: 'Home',
       icon: <House className="size-6" />,
-      url: "/"
+      url: "/home"
     },
     {
       name: 'Clothes',
@@ -46,17 +46,19 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     },
   ]
 
+  console.log(location)
+
   return (
     <AnimatePresence>
       <nav>
-        <div className={`sticky top-0 h-screen overflow-hidden left-0  min-w-[300px] hidden lg:flex flex-col  gap-[30px]  bg-RichBlack text-PaleNimbus`}>
+        <div className={`sticky top-0 h-screen overflow-hidden left-0  min-w-[300px] hidden lg:flex flex-col  gap-[20px]  bg-RichBlack text-PaleNimbus`}>
           <div className="p-6">
-            <img src="/PoohDa White green.png" className="max-w-[250px]" />
+            <img src="/PoohDa White green.png" className="max-w-[250px]" alt="Logo" loading='lazy' />
           </div>
           {navItems.map((item) => (
-            <Link to={item.url} className={`flex gap-3 relative font-Railway font-bold  justify-center py-2 text-[1.2rem] items-center ${location.pathname === item.url && 'text-RichBlack'}`}>
+            <Link to={item.url} className={`flex gap-3 relative font-Railway font-bold  justify-center py-2 text-[1rem] items-center ${location.pathname.includes(item.url) && 'text-RichBlack'}`}>
               <span>{item.icon}</span>
-              {location.pathname === item.url && (
+              {location.pathname.includes(item.url) && (
                 <motion.span
                   layoutId="highlight"
                   initial={false}
@@ -74,7 +76,7 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
 
         <div className="fixed top-0 left-0 right-0 bg-RichBlack flex justify-between items-center p-5 max-h-[80px] lg:hidden">
-          <img src="/PoohDa White green.png" className="max-w-[100px]" />
+          <img src="/PoohDa White green.png" className="max-w-[100px]" alt="Logo" loading='lazy' />
           <button onClick={openSidebar}>
             {isSidebarOpen ? <X color="#ECF4E5" size={30} /> : <Menu color="#ECF4E5" size={30} />}
           </button>

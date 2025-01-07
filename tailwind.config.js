@@ -13,6 +13,7 @@ export default {
       colors: {
         PaleNimbus: "#ECF4E5",
         RichBlack: "#0D0D0D",
+        HoverBlack: "#262626",
       },
     },
   },
