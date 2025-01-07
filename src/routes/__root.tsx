@@ -8,13 +8,14 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
   return (
     <>
-      <div className="relative flex bg-PaleNimbus text-RichBlack">
-        <Nav />
+      <div className={`relative flex bg-PaleNimbus text-RichBlack ${isSidebarOpen && 'overflow-hidden'}`}>
+        <Nav setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
         <hr />
-        <div className="container my-10 mx-auto p-5">
+        <div className="container my-[80px] min-h-screen lg:my-10 mx-auto p-5">
           <Outlet />
         </div>
       </div>

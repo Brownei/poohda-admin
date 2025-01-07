@@ -22,9 +22,9 @@ export const clothingList: ClothingItem[] = [];
 function RouteComponent() {
   return (
     <main className="grid gap-3">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:justify-between lg:items-center lg:flex-row">
         <label className="text-[2rem] lg:text-[3rem] font-Railway">List of Products</label>
-        <button className="flex gap-1 font-Lato font-semibold items-center px-5 py-2 bg-RichBlack text-PaleNimbus rounded-lg">
+        <button className="flex gap-1 font-Lato font-semibold w-fit items-center px-5 py-2 bg-RichBlack text-PaleNimbus rounded-lg">
           <span><PlusCircleIcon className="size-4" /></span>
           Add New Clothing
         </button>

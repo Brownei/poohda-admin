@@ -14,7 +14,7 @@ const WaitlistTable = ({ waitlist }: { waitlist: any }) => {
         </thead>
         <tbody className="[&>tr]:border-b [&>tr]:last-child:border-0 divide-y divide-border">
           {waitlist.length === 0 ? (
-            <div className='absolute top-[50%] left-[59%] translate-x-[-50%] translate-y-[-50%] z-30 font-bold font-Railway text-[1.3rem]'>No one's waiting</div>
+            <div className='absolute top-[50%] left-[50%] lg:left-[59%] translate-x-[-50%] translate-y-[-50%] z-30 font-bold font-Railway text-[1.3rem]'>No one's waiting</div>
           ) : (
             <>
               {waitlist.map((item, index) => (

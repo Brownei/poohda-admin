@@ -18,7 +18,7 @@ const Table = ({ clothingList }: { clothingList: ClothingItem[] }) => {
         </thead>
         <tbody className="[&>tr]:border-b [&>tr]:last-child:border-0 divide-y divide-border">
           {clothingList.length === 0 ? (
-            <div className='absolute top-[50%] left-[59%] translate-x-[-50%] translate-y-[-50%] z-30 font-bold font-Railway text-[1.3rem]'>No products</div>
+            <div className='absolute top-[50%] left-[50%] lg:left-[59%] translate-x-[-50%] translate-y-[-50%] z-30 font-bold font-Railway text-[1.3rem]'>No products</div>
           ) : (
             <>
               {clothingList.map((item, index) => (

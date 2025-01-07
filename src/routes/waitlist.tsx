@@ -12,7 +12,7 @@ export const Route = createFileRoute("/waitlist")({
 function RouteComponent() {
   return (
     <main className="grid gap-3">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:justify-between lg:items-center lg:flex-row">
         <label className="text-[2rem] lg:text-[3rem] font-Railway">Waitlist</label>
       </div>
 
