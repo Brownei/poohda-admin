@@ -75,7 +75,7 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </button>
         </div>
 
-        <div className="fixed top-0 left-0 right-0 bg-RichBlack flex justify-between items-center p-5 max-h-[80px] lg:hidden">
+        <div className="fixed z-50 top-0 left-0 right-0 bg-RichBlack flex justify-between items-center p-5 max-h-[80px] lg:hidden">
           <img src="/PoohDa White green.png" className="max-w-[100px]" alt="Logo" loading='lazy' />
           <button onClick={openSidebar}>
             {isSidebarOpen ? <X color="#ECF4E5" size={30} /> : <Menu color="#ECF4E5" size={30} />}
@@ -91,7 +91,7 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed top-0 h-screen overflow-hidden right-0 p-5 min-w-[300px] flex flex-col justify-center items-center gap-[40px]  bg-RichBlack text-PaleNimbus">
+          className="fixed z-50 top-0 h-screen overflow-hidden right-0 p-5 min-w-[300px] flex flex-col justify-center items-center gap-[40px]  bg-RichBlack text-PaleNimbus">
           <button onClick={openSidebar}>
             <X className="absolute top-5 right-10" color="#ECF4E5" size={30} />
           </button>

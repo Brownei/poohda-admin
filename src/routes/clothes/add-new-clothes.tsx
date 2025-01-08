@@ -1,11 +1,65 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ChevronLeft } from 'lucide-react'
+import { Cloudinary } from '@cloudinary/url-gen';
+import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
+import axios from 'axios'
+import React from 'react';
+import UploadButton from '@/components/ui/upload-button';
+
 
 export const Route = createFileRoute('/clothes/add-new-clothes')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const cloudName = 'brownson';
+  const uploadPreset = 'tzg9hiuf';
+
+  // State
+  const [image, setImage] = React.useState(null);
+  const [uploading, setUploading] = React.useState(false);
+  const [publicId, setPublicId] = React.useState('');
+
+  // Cloudinary configuration
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName,
+    },
+  });
+
+  // Upload Widget Configuration
+  const uwConfig = {
+    cloudName,
+    uploadPreset,
+  };
+
+  const handleUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset); // Replace with your upload preset
+    formData.append("cloud_name", cloudName); // Replace with your cloud name
+
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        formData
+      );
+
+      setImage(response.data.secure_url);
+      alert("Upload successful!");
+    } catch (error) {
+      console.error("Upload failed:", error);
+      alert("Upload failed.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return (
     <main>
       <div className='grid gap-10 font-Railway'>
@@ -14,7 +68,7 @@ function RouteComponent() {
           <span>Back</span>
         </Link>
 
-        <input type='file' className='placeholder:none border lg:min-h-[300px]' />
+        <UploadButton />
         <form className='grid w-full gap-4 text-[1rem]'>
           <div className='w-full flex items-center gap-4 flex-col lg:flex-row'>
             <div className='w-full grid gap-1 items-center lg:w-1/2'>

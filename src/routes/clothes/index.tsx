@@ -14,7 +14,36 @@ export type ClothingItem = {
   category: string;
 };
 
-export const clothingList: ClothingItem[] = [];
+export const clothingList: ClothingItem[] = [
+  {
+    name: "Vintage T-Shirt",
+    price: 29.99,
+    description: "A classic cotton t-shirt.",
+    soldOut: false,
+    category: "Tops",
+  },
+  {
+    name: "Denim Jeans",
+    price: 49.99,
+    description: "Stylish and comfortable jeans.",
+    soldOut: false,
+    category: "Bottoms",
+  },
+  {
+    name: "Leather Jacket",
+    price: 129.99,
+    description: "Premium quality leather jacket.",
+    soldOut: true,
+    category: "Outerwear",
+  },
+  {
+    name: "Canvas Sneakers",
+    price: 59.99,
+    description: "Durable and fashionable sneakers.",
+    soldOut: false,
+    category: "Footwear",
+  },
+];
 
 
 function RouteComponent() {
