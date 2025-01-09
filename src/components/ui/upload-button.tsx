@@ -1,15 +1,21 @@
 import { useUploadedPictures } from "@/hooks/use-upload-store";
 import { ImagePlus, Trash2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useState } from "react";
 
 export type UploadedFile = {
   secure_url: string
   original_filename: string
 }
 
-const UploadButton = () => {
+type UploadButtonProps = {
+  uploads: UploadedFile[]
+  setUploads: Dispatch<SetStateAction<UploadedFile[]>>
+  multiples: boolean
+}
+
+const UploadButton: FC<UploadButtonProps> = ({ uploads, multiples, setUploads }) => {
   const { uploadPictures: setUploadPictures, uploadedPictures } = useUploadedPictures()
-  const [uploads, setUploads] = useState<UploadedFile[]>([]);
+  //const [uploads, setUploads] = useState<UploadedFile[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   //
   //const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +124,7 @@ const UploadButton = () => {
                     </button>
                   </div>
                   <img
+                    loading="lazy"
                     className="object-cover w-full h-[300px]"
                     alt={file.original_filename}
                     src={file.secure_url}
@@ -141,21 +148,25 @@ const UploadButton = () => {
                   </div>
                 ))}
               </div>)}
-            <label
-              htmlFor="upload-input"
-              className="cursor-pointer flex justify-center mt-3 items-center border border-dotted border-RichBlack text-black py-2 px-4 rounded-md  transition-colors"
-            >
-              <ImagePlus className="h-4 w-4 mr-2" />
-              <span>Upload More</span>
-            </label>
-            <input
-              id="upload-input"
-              type="file"
-              accept=".heic,.jpg,.jpeg,.png,.mp4"
-              multiple
-              onChange={async (e) => await uploadPictures(e)}
-              className="hidden"
-            />
+            {multiples && (
+              <>
+                <label
+                  htmlFor="upload-input"
+                  className="cursor-pointer flex justify-center mt-3 items-center border border-dotted border-RichBlack text-black py-2 px-4 rounded-md  transition-colors"
+                >
+                  <ImagePlus className="h-4 w-4 mr-2" />
+                  <span>Upload More</span>
+                </label>
+                <input
+                  id="upload-input"
+                  type="file"
+                  accept=".heic,.jpg,.jpeg,.png,.mp4"
+                  multiple
+                  onChange={async (e) => await uploadPictures(e)}
+                  className="hidden"
+                />
+              </>
+            )}
           </div>
         ) : uploadProgress.length > 0 ? (
           <div className="mt-4 space-y-2">

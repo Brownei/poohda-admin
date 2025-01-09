@@ -4,7 +4,19 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import axios from 'axios'
 import React from 'react';
-import UploadButton from '@/components/ui/upload-button';
+import UploadButton, { UploadedFile } from '@/components/ui/upload-button';
+import { API_URL } from '@/lib/utils';
+import { useForm, SubmitHandler } from "react-hook-form"
+import { useAllCategories } from '@/hooks/queries/use-categories';
+
+
+type Inputs = {
+  name: string
+  description: string
+  price: string
+  category_id: string
+  quantity: string
+}
 
 
 export const Route = createFileRoute('/clothes/add-new-clothes')({
@@ -12,53 +24,43 @@ export const Route = createFileRoute('/clothes/add-new-clothes')({
 })
 
 function RouteComponent() {
-  const cloudName = 'brownson';
-  const uploadPreset = 'tzg9hiuf';
+  const { data: categories, isLoading, error } = useAllCategories()
+  const [uploads, setUploads] = React.useState<UploadedFile[]>([]);
 
-  // State
-  const [image, setImage] = React.useState(null);
-  const [uploading, setUploading] = React.useState(false);
-  const [publicId, setPublicId] = React.useState('');
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
 
-  // Cloudinary configuration
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName,
-    },
-  });
+  const [isPending, setIsPending] = React.useState(false)
 
-  // Upload Widget Configuration
-  const uwConfig = {
-    cloudName,
-    uploadPreset,
-  };
-
-  const handleUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    setUploading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", uploadPreset); // Replace with your upload preset
-    formData.append("cloud_name", cloudName); // Replace with your cloud name
-
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsPending(true)
+    console.log(data)
     try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        formData
-      );
-
-      setImage(response.data.secure_url);
-      alert("Upload successful!");
+      const response = await axios.post(`${API_URL}/clothes`, {
+        name: data.name,
+        description: data.description,
+        price: Number(data.price),
+        category_id: Number(data.category_id),
+        quantity: Number(data.quantity),
+        pictures: uploads.map((p) => p.secure_url)
+      })
+      if (response.status === 201) {
+        alert("Clothes created!")
+      }
     } catch (error) {
-      console.error("Upload failed:", error);
-      alert("Upload failed.");
+      console.log(error)
     } finally {
-      setUploading(false);
+      setIsPending(false)
     }
-  };
+  }
+
+  if (isLoading) {
+    <>Loading...</>
+  }
 
   return (
     <main>
@@ -68,30 +70,57 @@ function RouteComponent() {
           <span>Back</span>
         </Link>
 
-        <UploadButton />
+        {!isLoading && categories.length === 0 && <span className='text-red-600 text-[0.8rem]'>*Categories are needed to be created first before creating products</span>}
+
+        <UploadButton multiples={true} uploads={uploads} setUploads={setUploads} />
         <form className='grid w-full gap-4 text-[1rem]'>
           <div className='w-full flex items-center gap-4 flex-col lg:flex-row'>
             <div className='w-full grid gap-1 items-center lg:w-1/2'>
               <label className='font-semibold  text-[1.1rem]'>Name</label>
-              <input className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
+              <input disabled={!isLoading && categories.length === 0} {...register("name", { required: true })} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
             </div>
             <div className='w-full grid gap-1 items-center lg:w-1/2'>
               <label className='font-semibold  text-[1.1rem]'>Price</label>
-              <input className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
+              <input disabled={!isLoading && categories.length === 0} {...register("price", { required: true })} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
+            </div>
+          </div>
+          <div className='w-full flex items-center gap-4 flex-col lg:flex-row'>
+            <div className='w-full grid gap-1 items-center'>
+              <label className='font-semibold  text-[1.1rem]'>Select a category</label>
+              <select
+                disabled={!isLoading && categories.length === 0}
+                {...register("category_id", { required: true })}
+                className="p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full"
+              >
+                <option value="" disabled selected>
+                  Select a category
+                </option>
+                {isLoading ? (
+                  <option>Loading....</option>
+                ) : categories.length === 0 ? (
+                  <option disabled>No categories created</option>
+                ) : (
+                  <>
+                    {categories.map((category) => (
+                      <option value={category.id}>{category.name}</option>
+                    ))}
+                  </>
+                )}
+              </select>
+            </div>
+            <div className='w-full grid gap-1 items-center'>
+              <label className='font-semibold  text-[1.1rem]'>Quantity</label>
+              <input disabled={!isLoading && categories.length === 0} {...register("quantity", { required: true })} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
             </div>
           </div>
           <div className='w-full grid gap-1 items-center'>
-            <label className='font-semibold  text-[1.1rem]'>Quantity</label>
-            <input className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
-          </div>
-          <div className='w-full grid gap-1 items-center'>
             <label className='font-semibold text-[1.1rem]'>Description</label>
-            <textarea className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full min-h-[150px] lg:min-h-[200px]' />
+            <textarea disabled={!isLoading && categories.length === 0} {...register("description", { required: true })} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full min-h-[150px] lg:min-h-[200px]' />
           </div>
 
-          <button type='button' className='bg-RichBlack hover:bg-HoverBlack font-semibold text-PaleNimbus w-full disabled:bg-HoverBlack flex items-center justify-center rounded-lg py-4'>Create</button>
+          <button onClick={handleSubmit(onSubmit)} type='button' disabled={!isLoading && categories.length === 0} className='bg-RichBlack hover:bg-HoverBlack font-semibold text-PaleNimbus w-full disabled:bg-HoverBlack flex items-center justify-center rounded-lg py-4'>Create</button>
         </form>
-      </div>
-    </main>
+      </div >
+    </main >
   )
 }

@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { redirect } from '@tanstack/react-router'
+import axios from 'axios'
 import Carousel from './ui/carousel'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { LoaderCircle } from 'lucide-react'
+import { API_URL } from '@/lib/utils'
 
 type Inputs = {
   username: string
   password: string
 }
+
 const images = [
   "/SML02098.jpg",
   "/SML02102.jpg",
@@ -18,14 +22,32 @@ const images = [
 ]
 
 const Login = () => {
-  const isPending = false
+  const [isPending, setIsPending] = useState(false)
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsPending(true)
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        username: data.username,
+        password: data.password
+      })
+      if (response) {
+        localStorage.setItem("admin", response.data)
+        window.location.assign('/home')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsPending(false)
+    }
+  }
 
   return (
     <main>
@@ -40,7 +62,7 @@ const Login = () => {
               {errors.username && <span className='text-red-600 text-[0.8rem]'>*Username is required</span>}
             </div>
             <div className='grid gap-1 w-full'>
-              <input disabled={isPending} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' placeholder='Password' {...register("password", { required: true })} />
+              <input disabled={isPending} type='password' className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' placeholder='Password' {...register("password", { required: true })} />
               {errors.password && <span className='text-red-600 text-[0.8rem]'>*Password is required</span>}
             </div>
 

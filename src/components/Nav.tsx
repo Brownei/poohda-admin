@@ -46,6 +46,11 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     },
   ]
 
+  function logOut() {
+    localStorage.removeItem("admin")
+    window.location.assign('/')
+  }
+
   console.log(location)
 
   return (
@@ -69,7 +74,7 @@ const Nav: FC<NavProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               {item.name}
             </Link>
           ))}
-          <button className="mt-[40px] flex gap-3 font-Railway font-bold text-[1.2rem] items-center justify-center">
+          <button onClick={logOut} className="mt-[40px] flex gap-3 font-Railway font-bold text-[1.2rem] items-center justify-center">
             <span><LogOut color="#ECF4E5" size={30} /></span>
             Logout
           </button>

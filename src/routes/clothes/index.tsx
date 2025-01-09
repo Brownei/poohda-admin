@@ -1,6 +1,8 @@
 import { PlusCircleIcon } from "lucide-react";
 import Table from "@/components/ui/table";
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useAllClothes } from "@/hooks/queries/use-clothes";
+import { useAllCategories } from "@/hooks/queries/use-categories";
 
 export const Route = createFileRoute('/clothes/')({
   component: RouteComponent,
@@ -10,11 +12,11 @@ export type ClothingItem = {
   name: string;
   price: number;
   description: string;
-  soldOut: boolean;
+  quantity: boolean;
   category: string;
 };
 
-export const clothingList: ClothingItem[] = [
+export const clothingList: any[] = [
   {
     name: "Vintage T-Shirt",
     price: 29.99,
@@ -47,6 +49,13 @@ export const clothingList: ClothingItem[] = [
 
 
 function RouteComponent() {
+  const { data: clothes, isLoading, error } = useAllClothes()
+  const { data: categories, isLoading: isCategoriesLoading, error: categoriesError } = useAllCategories()
+  if (isLoading || isCategoriesLoading) {
+    return (
+      <>LOADING....</>
+    )
+  }
   return (
     <main className="grid gap-3">
       <div className="flex flex-col items-start lg:justify-between lg:items-center lg:flex-row">
@@ -58,7 +67,7 @@ function RouteComponent() {
       </div>
 
       <div className="w-full bg-RichBlack h-[1px]" />
-      <Table clothingList={clothingList} />
+      <Table categories={categories} clothingList={clothes} />
     </main>
   )
 }
