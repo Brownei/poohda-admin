@@ -6,7 +6,7 @@ import { formatNaira } from '@/lib/utils'
 const Table = ({ clothingList, categories }: { clothingList: any[], categories: any[] }) => {
   return (
     <div className="overflow-x-auto font-Lato">
-      <table className="min-w-full divide-y divide-border rounded-md shadow-sm bg-background text-sm">
+      <table className="w-full divide-y divide-border rounded-md shadow-sm bg-background text-sm">
         <thead className="bg-muted/50">
           <tr>
             <th className="px-4 py-2 text-left font-semibold text-foreground">Name</th>

@@ -52,11 +52,11 @@ const Login = () => {
   return (
     <main>
       <div className='flex'>
-        <div className='w-1/2 flex flex-col justify-center items-center bg-PaleNimbus'>
+        <div className='w-full p-4 lg:w-1/2 flex flex-col justify-center items-center bg-PaleNimbus h-screen'>
           <img src="/PoohDa White gradient glitch.png" className="max-w-[250px]" alt="Logo" loading='lazy' />
           <h1 className='font-Disamber -mt-24 text-[2.2rem] tracking-wider'>Be da Difference</h1>
 
-          <form className='flex flex-col gap-4 items-center font-semibold font-Railway min-w-[400px] mt-4'>
+          <form className='flex flex-col gap-4 items-center font-semibold font-Railway w-full lg:min-w-[400px] mt-4'>
             <div className='grid gap-1 w-full'>
               <input disabled={isPending} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' placeholder='Username' {...register("username", { required: true })} />
               {errors.username && <span className='text-red-600 text-[0.8rem]'>*Username is required</span>}

@@ -36,7 +36,7 @@ const Carousel: React.FC<PropType> = (props) => {
   }, [emblaApi, addScrollListener])
 
   return (
-    <div className="h-screen w-1/2">
+    <div className="hidden lg:block h-screen w-1/2">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {slides.map((slide, index) => (
