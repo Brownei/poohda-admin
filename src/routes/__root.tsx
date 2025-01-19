@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import Nav from "../components/Nav";
-import Login from "@/components/Login";
+import Login from "../components/Login";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export const Route = createRootRoute({
@@ -24,7 +24,7 @@ function RootComponent() {
           <div className={`relative flex bg-PaleNimbus text-RichBlack ${isSidebarOpen && 'overflow-hidden'}`}>
             <Nav setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
             <hr />
-            <div className="container my-[80px] min-h-screen lg:my-10 mx-auto p-5">
+            <div className=" container my-[90px] min-h-screen lg:my-7 mx-auto p-1 lg:p-3">
               <Outlet />
             </div>
           </div>

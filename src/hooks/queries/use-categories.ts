@@ -1,5 +1,5 @@
-import { api } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
+import { api } from "../../lib/utils"
 
 
 async function getAllCategories() {
@@ -10,8 +10,5 @@ async function getAllCategories() {
 export const useAllCategories = () => useQuery({
   queryKey: ['all-categories'],
   queryFn: getAllCategories,
-  onSuccess({ data }) {
-    console.log(data)
-  }
 })
 

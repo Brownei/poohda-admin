@@ -1,4 +1,4 @@
-import { useUploadedPictures } from "@/hooks/use-upload-store";
+import { useUploadedPictures } from "../../hooks/use-upload-store";
 import { ImagePlus, Trash2 } from "lucide-react";
 import React, { Dispatch, FC, SetStateAction, useState } from "react";
 

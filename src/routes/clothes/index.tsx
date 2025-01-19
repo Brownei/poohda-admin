@@ -1,8 +1,9 @@
+import React from "react";
 import { PlusCircleIcon } from "lucide-react";
-import Table from "@/components/ui/table";
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { useAllClothes } from "@/hooks/queries/use-clothes";
-import { useAllCategories } from "@/hooks/queries/use-categories";
+import Table from "../../components/ui/table";
+import { useAllCategories } from "../../hooks/queries/use-categories";
+import { useAllClothes } from "../../hooks/queries/use-clothes";
 
 export const Route = createFileRoute('/clothes/')({
   component: RouteComponent,
@@ -58,7 +59,7 @@ function RouteComponent() {
   }
   return (
     <main className="grid gap-3">
-      <div className="flex flex-col items-start lg:justify-between lg:items-center lg:flex-row">
+      <div className="flex  justify-between items-center flex-row">
         <label className="text-[2rem] lg:text-[3rem] font-Railway">List of Products</label>
         <Link to="/clothes/add-new-clothes" className="flex gap-1 font-Lato font-semibold w-fit items-center px-5 py-2 bg-RichBlack text-PaleNimbus rounded-lg">
           <span><PlusCircleIcon className="size-4" /></span>

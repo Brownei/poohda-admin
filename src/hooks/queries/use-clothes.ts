@@ -1,5 +1,5 @@
-import { api } from "@/lib/utils"
 import { useQuery } from "@tanstack/react-query"
+import { api } from "../../lib/utils"
 
 
 async function getAllClothes() {
@@ -10,9 +10,6 @@ async function getAllClothes() {
 export const useAllClothes = () => useQuery({
   queryKey: ['all-clothes'],
   queryFn: getAllClothes,
-  onSuccess({ data }) {
-    console.log(data)
-  }
 })
 
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ClothingItem } from '@/routes/clothes'
 import { EllipsisVertical } from 'lucide-react'
-import { formatNaira } from '@/lib/utils'
+import { formatNaira } from '../../lib/utils'
 
 const Table = ({ clothingList, categories }: { clothingList: any[], categories: any[] }) => {
   return (
@@ -36,7 +36,7 @@ const Table = ({ clothingList, categories }: { clothingList: any[], categories: 
                     <td className="px-4 py-3">{formatNaira(item.price)}</td>
                     <td className="px-4 py-3 line-clamp-3 overflow-hidden">{item.description}</td>
                     <td className="px-4 py-3">{item.quantity === 0 ? "Yes" : "No"}</td>
-                    <td className="px-4 py-3">{category.name}</td>
+                    <td className="px-4 py-3 capitalize">{category.name}</td>
                     <td className="px-4 py-3">{item.quantity}</td>
                     <td className="px-4 py-3"><EllipsisVertical className='size-3 text-RichBlack' /></td>
                   </tr>

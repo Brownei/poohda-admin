@@ -1,13 +1,15 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { ChevronLeft } from 'lucide-react'
+import { createFileRoute, Link, useLocation, useRouter } from '@tanstack/react-router'
+import { ChevronLeft, LoaderCircle } from 'lucide-react'
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import axios from 'axios'
 import React from 'react';
-import UploadButton, { UploadedFile } from '@/components/ui/upload-button';
-import { API_URL } from '@/lib/utils';
+import UploadButton, { UploadedFile } from '../../components/ui/upload-button';
+import { API_URL } from '../../lib/utils';
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useAllCategories } from '@/hooks/queries/use-categories';
+import { useAllCategories } from '../../hooks/queries/use-categories';
+import { setServers } from 'dns';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 type Inputs = {
@@ -18,15 +20,28 @@ type Inputs = {
   quantity: string
 }
 
+export const sizes = [
+  'XS',
+  'S',
+  'M',
+  'L',
+  'XL',
+  'XXL',
+  'XXXL'
+]
+
 
 export const Route = createFileRoute('/clothes/add-new-clothes')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const queryClient = useQueryClient()
+  const router = useRouter()
+  const [sizesSelected, setSizesSelected] = React.useState<string[]>([])
   const { data: categories, isLoading, error } = useAllCategories()
   const [uploads, setUploads] = React.useState<UploadedFile[]>([]);
-
+  console.log(sizesSelected)
   const {
     register,
     handleSubmit,
@@ -46,10 +61,14 @@ function RouteComponent() {
         price: Number(data.price),
         category_id: Number(data.category_id),
         quantity: Number(data.quantity),
-        pictures: uploads.map((p) => p.secure_url)
+        pictures: uploads.map((p) => p.secure_url),
+        sizes: sizesSelected
       })
       if (response.status === 201) {
-        alert("Clothes created!")
+        queryClient.invalidateQueries({ queryKey: ["all-clothes"] })
+        router.navigate({
+          to: '/clothes'
+        })
       }
     } catch (error) {
       console.log(error)
@@ -62,6 +81,16 @@ function RouteComponent() {
     <>Loading...</>
   }
 
+  function selectSizes(index: string) {
+    const includedSize = sizesSelected.find((s) => s === index)
+    if (includedSize) {
+      const filteredSizes = sizesSelected.filter((s) => s !== index)
+      setSizesSelected(filteredSizes)
+    } else {
+      setSizesSelected((prev) => [...prev, index])
+    }
+  }
+
   return (
     <main>
       <div className='grid gap-10 font-Railway'>
@@ -70,7 +99,7 @@ function RouteComponent() {
           <span>Back</span>
         </Link>
 
-        {!isLoading && categories.length === 0 && <span className='text-red-600 text-[0.8rem]'>*Categories are needed to be created first before creating products</span>}
+        {!isLoading && categories?.length === 0 && <span className='text-red-600 text-[0.8rem]'>*Categories are needed to be created first before creating products</span>}
 
         <UploadButton multiples={true} uploads={uploads} setUploads={setUploads} />
         <form className='grid w-full gap-4 text-[1rem]'>
@@ -101,7 +130,7 @@ function RouteComponent() {
                   <option disabled>No categories created</option>
                 ) : (
                   <>
-                    {categories.map((category) => (
+                    {categories.map((category: any) => (
                       <option value={category.id}>{category.name}</option>
                     ))}
                   </>
@@ -113,12 +142,23 @@ function RouteComponent() {
               <input disabled={!isLoading && categories.length === 0} {...register("quantity", { required: true })} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full ' />
             </div>
           </div>
+
+          <div className='w-full grid gap-1 items-center'>
+            <label className='font-semibold text-[1.1rem]'>Sizes</label>
+            <div className='flex flex-wrap gap-10'>
+              {sizes.map((size, index) => (
+                <button key={index} onClick={() => selectSizes(size)} type='button' className={`border-RichBlack font-Railway font-bold text-[1rem] size-[60px] md:size-[70px] lg:size-[80px] text-center ${sizesSelected.includes(size) ? 'border-2' : 'border'}`}>{size}</button>
+              ))}
+            </div>
+          </div>
+
+
           <div className='w-full grid gap-1 items-center'>
             <label className='font-semibold text-[1.1rem]'>Description</label>
             <textarea disabled={!isLoading && categories.length === 0} {...register("description", { required: true })} className='p-4 border border-RichBlack disabled:bg-gray-100 focus:outline-none rounded-lg w-full min-h-[150px] lg:min-h-[200px]' />
           </div>
 
-          <button onClick={handleSubmit(onSubmit)} type='button' disabled={!isLoading && categories.length === 0} className='bg-RichBlack hover:bg-HoverBlack font-semibold text-PaleNimbus w-full disabled:bg-HoverBlack flex items-center justify-center rounded-lg py-4'>Create</button>
+          <button onClick={handleSubmit(onSubmit)} type='button' disabled={(!isLoading && categories.length === 0) || isPending} className='bg-RichBlack hover:bg-HoverBlack font-semibold text-PaleNimbus w-full disabled:bg-HoverBlack flex items-center justify-center rounded-lg py-4'>{isPending ? <LoaderCircle className='size-5 animate-spin' /> : 'Create'}</button>
         </form>
       </div >
     </main >

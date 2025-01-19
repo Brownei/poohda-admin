@@ -19,6 +19,7 @@ import { Route as ClothesIndexImport } from './routes/clothes/index'
 import { Route as CategoriesIndexImport } from './routes/categories/index'
 import { Route as ClothesAddNewClothesImport } from './routes/clothes/add-new-clothes'
 import { Route as CategoriesAddNewCategoriesImport } from './routes/categories/add-new-categories'
+import { Route as CategoriesIdImport } from './routes/categories/$id'
 
 // Create/Update Routes
 
@@ -72,6 +73,12 @@ const CategoriesAddNewCategoriesRoute = CategoriesAddNewCategoriesImport.update(
   } as any,
 )
 
+const CategoriesIdRoute = CategoriesIdImport.update({
+  id: '/categories/$id',
+  path: '/categories/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/waitlist'
       fullPath: '/waitlist'
       preLoaderRoute: typeof WaitlistImport
+      parentRoute: typeof rootRoute
+    }
+    '/categories/$id': {
+      id: '/categories/$id'
+      path: '/categories/$id'
+      fullPath: '/categories/$id'
+      preLoaderRoute: typeof CategoriesIdImport
       parentRoute: typeof rootRoute
     }
     '/categories/add-new-categories': {
@@ -142,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRoute
   '/orders': typeof OrdersRoute
   '/waitlist': typeof WaitlistRoute
+  '/categories/$id': typeof CategoriesIdRoute
   '/categories/add-new-categories': typeof CategoriesAddNewCategoriesRoute
   '/clothes/add-new-clothes': typeof ClothesAddNewClothesRoute
   '/categories': typeof CategoriesIndexRoute
@@ -153,6 +168,7 @@ export interface FileRoutesByTo {
   '/home': typeof HomeRoute
   '/orders': typeof OrdersRoute
   '/waitlist': typeof WaitlistRoute
+  '/categories/$id': typeof CategoriesIdRoute
   '/categories/add-new-categories': typeof CategoriesAddNewCategoriesRoute
   '/clothes/add-new-clothes': typeof ClothesAddNewClothesRoute
   '/categories': typeof CategoriesIndexRoute
@@ -165,6 +181,7 @@ export interface FileRoutesById {
   '/home': typeof HomeRoute
   '/orders': typeof OrdersRoute
   '/waitlist': typeof WaitlistRoute
+  '/categories/$id': typeof CategoriesIdRoute
   '/categories/add-new-categories': typeof CategoriesAddNewCategoriesRoute
   '/clothes/add-new-clothes': typeof ClothesAddNewClothesRoute
   '/categories/': typeof CategoriesIndexRoute
@@ -178,6 +195,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/orders'
     | '/waitlist'
+    | '/categories/$id'
     | '/categories/add-new-categories'
     | '/clothes/add-new-clothes'
     | '/categories'
@@ -188,6 +206,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/orders'
     | '/waitlist'
+    | '/categories/$id'
     | '/categories/add-new-categories'
     | '/clothes/add-new-clothes'
     | '/categories'
@@ -198,6 +217,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/orders'
     | '/waitlist'
+    | '/categories/$id'
     | '/categories/add-new-categories'
     | '/clothes/add-new-clothes'
     | '/categories/'
@@ -210,6 +230,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRoute
   OrdersRoute: typeof OrdersRoute
   WaitlistRoute: typeof WaitlistRoute
+  CategoriesIdRoute: typeof CategoriesIdRoute
   CategoriesAddNewCategoriesRoute: typeof CategoriesAddNewCategoriesRoute
   ClothesAddNewClothesRoute: typeof ClothesAddNewClothesRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
@@ -221,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRoute,
   OrdersRoute: OrdersRoute,
   WaitlistRoute: WaitlistRoute,
+  CategoriesIdRoute: CategoriesIdRoute,
   CategoriesAddNewCategoriesRoute: CategoriesAddNewCategoriesRoute,
   ClothesAddNewClothesRoute: ClothesAddNewClothesRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
@@ -241,6 +263,7 @@ export const routeTree = rootRoute
         "/home",
         "/orders",
         "/waitlist",
+        "/categories/$id",
         "/categories/add-new-categories",
         "/clothes/add-new-clothes",
         "/categories/",
@@ -258,6 +281,9 @@ export const routeTree = rootRoute
     },
     "/waitlist": {
       "filePath": "waitlist.tsx"
+    },
+    "/categories/$id": {
+      "filePath": "categories/$id.tsx"
     },
     "/categories/add-new-categories": {
       "filePath": "categories/add-new-categories.tsx"

@@ -4,7 +4,7 @@ import axios from 'axios'
 import Carousel from './ui/carousel'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { LoaderCircle } from 'lucide-react'
-import { API_URL } from '@/lib/utils'
+import { API_URL } from '../lib/utils'
 
 type Inputs = {
   username: string

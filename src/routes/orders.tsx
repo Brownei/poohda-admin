@@ -1,12 +1,21 @@
-import OrdersTable from '@/components/ui/orders-table'
+import OrdersTable from '../components/ui/orders-table'
 import { createFileRoute } from '@tanstack/react-router'
 import { clothingList } from './clothes'
+import { useAllOrders } from '../hooks/queries/use-orders'
 
 export const Route = createFileRoute('/orders')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { data: orders, isLoading, error } = useAllOrders()
+  if (isLoading) {
+    return <>isLoading....</>
+  } else if (error) {
+    <>Errorr</>
+  }
+
+  console.log(orders)
   return (
     <main className="grid gap-3">
       <div className="flex flex-col lg:justify-between lg:items-center lg:flex-row">
